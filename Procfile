@@ -1,0 +1,1 @@
+web: gunicorn GG-BE2.wsgi
