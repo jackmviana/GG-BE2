@@ -1,1 +1,1 @@
-web: gunicorn GG-BE2.wsgi
+web: gunicorn gg_django.wsgi

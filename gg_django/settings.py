@@ -20,9 +20,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join (BASE_DIR , 'gg-app')
-print(DB_PATH)
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,7 +30,9 @@ print(DB_PATH)
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.environ['MODE'] == 'dev' else False
+MODE = os.environ['MODE']
+
+DEBUG = True if MODE == 'dev' else False
 
 ALLOWED_HOSTS = ['*']
 
@@ -122,7 +122,7 @@ WSGI_APPLICATION = 'gg_django.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=0, ssl_require=False)
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 # Password validation
@@ -168,13 +168,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
-# Configure Django App for Heroku.
-import django_heroku
-
-
-# Other settings above
-django_heroku.settings(locals() ,databases=False)
 
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
